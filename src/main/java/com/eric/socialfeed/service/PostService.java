@@ -1,6 +1,7 @@
 package com.eric.socialfeed.service;
 
 import com.eric.socialfeed.model.Post;
+import com.eric.socialfeed.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,28 +10,18 @@ import java.util.List;
 @Service
 public class PostService {
 
-    private List<Post> posts = new ArrayList<>();
+    private PostRepository postRepository;
 
-    public PostService(){
-
-        Post post = new Post();
-
-        post.setId(1);
-        post.setContent("Testing service post");
-
-        posts.add(post);
-
+    public PostService(PostRepository postRepository){
+        this.postRepository = postRepository;
     }
 
     public List<Post> getPosts() {
-        return posts;
+        return postRepository.findAll();
     }
 
     public Post createPost(Post post) {
-
-        posts.add(post);
-
-        return post;
+        return postRepository.save(post);
     }
 
 }
