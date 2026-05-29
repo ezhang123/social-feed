@@ -1,5 +1,6 @@
 package com.eric.socialfeed.controller;
 
+import com.eric.socialfeed.dto.PostRequest;
 import com.eric.socialfeed.model.Post;
 import com.eric.socialfeed.service.PostService;
 import jakarta.persistence.PostUpdate;
@@ -25,13 +26,23 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public Post createPost(@Valid @RequestBody Post post){
+    public Post createPost(@Valid @RequestBody PostRequest request){
+
+        Post post = new Post();
+
+        post.setContent(request.getContent());
+
         return postService.createPost(post);
     }
 
     @PutMapping("/posts/{id}")
-    public Post updatePost(@PathVariable int id, @Valid @RequestBody Post updatePost){
-        return postService.updatePost(id, updatePost);
+    public Post updatePost(@PathVariable int id, @Valid @RequestBody PostRequest request){
+
+        Post post = new Post();
+
+        post.setContent(request.getContent());
+
+        return postService.updatePost(id, post);
     }
 
     @DeleteMapping("/posts/{id}")
