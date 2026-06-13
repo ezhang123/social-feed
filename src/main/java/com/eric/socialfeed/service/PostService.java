@@ -1,6 +1,8 @@
 package com.eric.socialfeed.service;
 
+import com.eric.socialfeed.model.Account;
 import com.eric.socialfeed.model.Post;
+import com.eric.socialfeed.repository.AccountRepository;
 import com.eric.socialfeed.repository.PostRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,16 +15,23 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final AccountRepository accountRepository;
 
-    public PostService(PostRepository postRepository){
+    public PostService(PostRepository postRepository, AccountRepository accountRepository){
         this.postRepository = postRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Post> getPosts() {
         return postRepository.findAll();
     }
 
-    public Post createPost(Post post) {
+    public Post createPost(Post post, Integer accountId) {
+
+        Account account = getAccountById(accountId);
+
+        post.setAccount(account);
+
         return postRepository.save(post);
     }
 
@@ -48,4 +57,11 @@ public class PostService {
 
         return postRepository.save(existingPost);
     }
+
+    private Account getAccountById(int id) {
+        return accountRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Account not found")
+        );
+    }
+
 }

@@ -9,11 +9,21 @@ public class PostRequest {
     @Size(max = 255, message = "Content too long")
     private String content;
 
+    private Integer accountId;
+
     public String getContent() {
         return content;
     }
 
+    public Integer getAccountId() {
+        return accountId;
+    }
+
     public void setContent(String content){
         this.content = content;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 }

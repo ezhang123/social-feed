@@ -3,11 +3,9 @@ package com.eric.socialfeed.controller;
 import com.eric.socialfeed.dto.PostRequest;
 import com.eric.socialfeed.model.Post;
 import com.eric.socialfeed.service.PostService;
-import jakarta.persistence.PostUpdate;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +30,7 @@ public class PostController {
 
         post.setContent(request.getContent());
 
-        return postService.createPost(post);
+        return postService.createPost(post, request.getAccountId());
     }
 
     @PutMapping("/posts/{id}")
