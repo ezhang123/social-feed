@@ -6,6 +6,7 @@ import com.eric.socialfeed.repository.AccountRepository;
 import com.eric.socialfeed.repository.PostRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -64,4 +65,8 @@ public class PostService {
         );
     }
 
+    public Post getPostById(@PathVariable int id) {
+
+        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+    }
 }

@@ -33,6 +33,12 @@ public class PostController {
         return postService.createPost(post, request.getAccountId());
     }
 
+    @GetMapping("/posts/{id}")
+    public Post getPostById(@PathVariable int id) {
+        return postService.getPostById(id);
+    }
+
+
     @PutMapping("/posts/{id}")
     public Post updatePost(@PathVariable int id, @Valid @RequestBody PostRequest request){
 

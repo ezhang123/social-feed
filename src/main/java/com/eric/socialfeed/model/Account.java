@@ -1,9 +1,10 @@
 package com.eric.socialfeed.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Account {
@@ -13,6 +14,10 @@ public class Account {
     private int id;
 
     private String username;
+
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private List<Post> posts = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -28,5 +33,13 @@ public class Account {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
