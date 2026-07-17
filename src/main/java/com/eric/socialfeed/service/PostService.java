@@ -67,6 +67,11 @@ public class PostService {
 
     public Post getPostById(@PathVariable int id) {
 
-        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        return postRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Post not found"
+                )
+        );
     }
 }
