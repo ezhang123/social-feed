@@ -2,10 +2,7 @@ package com.eric.socialfeed.controller;
 
 import com.eric.socialfeed.model.Account;
 import com.eric.socialfeed.service.AccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,10 @@ public class AccountController {
     @PostMapping("/users")
     public Account createUser(@RequestBody Account account) {
         return accountService.createUser(account);
+    }
+
+    @GetMapping("/users/{id}")
+    public Account getUserById(@PathVariable int id){
+        return accountService.getUserById(id);
     }
 }

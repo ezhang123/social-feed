@@ -2,7 +2,10 @@ package com.eric.socialfeed.service;
 
 import com.eric.socialfeed.model.Account;
 import com.eric.socialfeed.repository.AccountRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,5 +26,12 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-
+    public Account getUserById(@PathVariable int id) {
+        return accountRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Account not found"
+                )
+        );
+    }
 }
